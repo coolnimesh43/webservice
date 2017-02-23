@@ -1,4 +1,4 @@
-package com.coolnimesh43.webservice.web;
+package com.coolnimesh43.webservice.web.controller;
 
 import java.util.Collections;
 
