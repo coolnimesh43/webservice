@@ -13,9 +13,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.env.Environment;
 
+import com.coolnimesh43.webservice.web.constant.WebServiceProperties;
+
 //@SpringCloudApplication
 @SpringBootApplication(scanBasePackages = { "com.coolnimesh43.webservice" })
-@EnableConfigurationProperties({ ThymeleafProperties.class })
+@EnableConfigurationProperties({ ThymeleafProperties.class, WebServiceProperties.class })
 @EnableEurekaClient
 @EnableCircuitBreaker
 @EnableAspectJAutoProxy

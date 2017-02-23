@@ -26,4 +26,9 @@ spring:
     basename: messages/messages_en
     cache-seconds: 3600
     
+webservice:
+  instance:
+    persistence:
+      name: persistence-service
+    
 
