@@ -1,6 +1,11 @@
 package com.coolnimesh43.webservice.web.model;
 
-public class User extends AbstractAuditEntity {
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class User extends AbstractAuditEntity implements UserDetails {
 
     private Long id;
     private String firstName;
@@ -8,9 +13,19 @@ public class User extends AbstractAuditEntity {
     private String email;
     private String login;
     private String fullName;
+    private Collection<? extends GrantedAuthority> authority;
+    private String userToken;
+    private String password;
 
     public User() {
         super();
+    }
+
+    public User(String userName, String password, Collection<? extends GrantedAuthority> authority, String userToken) {
+        this.login = userName;
+        this.password = password;
+        this.authority = authority;
+        this.userToken = userToken;
     }
 
     private User(Builder builder) {
@@ -68,6 +83,54 @@ public class User extends AbstractAuditEntity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Collection<? extends GrantedAuthority> authority) {
+        this.authority = authority;
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authority;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getUsername() {
+        return this.login;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return this.isEnabled();
     }
 
     @Override

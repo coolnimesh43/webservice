@@ -8,7 +8,11 @@ public class Token {
     String token;
     long expires;
 
-    public Token(String token, long expires){
+    public Token() {
+        super();
+    }
+
+    public Token(String token, long expires) {
         this.token = token;
         this.expires = expires;
     }

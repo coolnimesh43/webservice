@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -22,21 +23,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource(name = "customUserDetailService")
     private UserDetailsService userDetailsService;
 
-    @Resource(name = "customAuthenticationProvider")
+    @Autowired
     private AuthenticationProvider authenticationProvider;
 
     @Override
-    @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider).userDetailsService(userDetailsService);
+        auth.authenticationProvider(authenticationProvider);
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin().loginPage("/login").loginProcessingUrl("/authenticate").usernameParameter("userName")
-                .passwordParameter("password").and().csrf().and().exceptionHandling().accessDeniedPage("/access-denied").and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and().authorizeRequests().antMatchers("/signup")
-                .permitAll().anyRequest().authenticated();
+        httpSecurity.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+                .usernameParameter("userName").passwordParameter("password").loginProcessingUrl("/login")
+                .defaultSuccessUrl("/login?success").and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .invalidateHttpSession(true).and().csrf();
+        httpSecurity.exceptionHandling().accessDeniedPage("/access-denied").and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and().authorizeRequests().antMatchers("/signup").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Override
