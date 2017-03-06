@@ -33,10 +33,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
-                .usernameParameter("userName").passwordParameter("password").loginProcessingUrl("/login")
-                .defaultSuccessUrl("/login?success").and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+
+        httpSecurity.authorizeRequests().anyRequest().fullyAuthenticated();
+
+        httpSecurity.formLogin().loginPage("/login").permitAll().usernameParameter("userName").passwordParameter("password")
+                .defaultSuccessUrl("/home", true).and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .invalidateHttpSession(true).and().csrf();
+
         httpSecurity.exceptionHandling().accessDeniedPage("/access-denied").and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and().authorizeRequests().antMatchers("/signup").permitAll()
                 .anyRequest().authenticated();

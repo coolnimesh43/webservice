@@ -4,17 +4,18 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.coolnimesh43.webservice.web.dto.SignInDTO;
 import com.coolnimesh43.webservice.web.service.AuthenticationService;
 
 @Controller
-// @RequestMapping("/login")
+@RequestMapping("/login")
 public class LoginController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -24,13 +25,19 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getLoginPage() {
-        return new ModelAndView("login");
+        log.debug("Login controller");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return new ModelAndView("login");
+
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView authenticate(@ModelAttribute SignInDTO signInDTO) {
-        log.debug("Inside login controller. Signin is: {}", signInDTO);
-        ModelAndView modelAndView = new ModelAndView("login");
+    public ModelAndView authenticate() {
+        log.debug("Inside login controller. Signin is: {}");
+        ModelAndView modelAndView = new ModelAndView("hello");
         // try {
         // SignInResponse response = this.authenticationService.authenticateUser(signInDTO.getLogin(), signInDTO.getPassword());
         // log.debug("Autentication successful: {}", response);
@@ -41,7 +48,7 @@ public class LoginController {
         // log.error("Exceptin while authenticating user. Exception is: {}", e);
         // modelAndView.addObject("error", "Error occurred while authenticating user.");
         // }
-        modelAndView.addObject("success", Boolean.TRUE);
+        modelAndView.addObject("name", "nimesh");
         return modelAndView;
     }
 }

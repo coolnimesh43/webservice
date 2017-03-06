@@ -40,7 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             if (response != null) {
                 Collection<? extends GrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>() {
                     {
-                        add(new SimpleGrantedAuthority("Role_Admin"));
+                        add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                     }
                 };
                 UsernamePasswordAuthenticationToken authenticationToken =
