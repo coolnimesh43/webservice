@@ -21,6 +21,7 @@ import com.coolnimesh43.webservice.web.constant.WebServiceProperties;
 import com.coolnimesh43.webservice.web.dto.SignInResponse;
 import com.coolnimesh43.webservice.web.model.Project;
 import com.coolnimesh43.webservice.web.service.ProjectService;
+import com.coolnimesh43.webservice.web.util.DateUtil;
 import com.coolnimesh43.webservice.web.util.WebUtil;
 
 @Service
@@ -43,6 +44,11 @@ public class ProjectServiceImpl implements ProjectService {
             ResponseEntity<List<Project>> response = (ResponseEntity<List<Project>>) this.restTemplateServiceImpl.get(request, userURL,
                     new ParameterizedTypeReference<List<Project>>() {
                     }, new Object[1]);
+            if (response != null) {
+                response.getBody().stream().filter(p -> p.getStartDate() != null && p.getEndDate() != null).forEach(p -> {
+                    p.setDuration(DateUtil.getDifferenceInDays(p.getStartDate(), p.getEndDate()));
+                });
+            }
             return response != null ? response.getBody() : null;
         } catch (URISyntaxException e) {
             log.error("Exception while building uri for user request. exception is: {}", e);

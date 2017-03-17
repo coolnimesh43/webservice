@@ -28,4 +28,20 @@ public class WebUtil {
         }
         return null;
     }
+
+    public static SignInResponse getSigninResponse() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            return ((SignInResponse) authentication);
+        }
+        return null;
+    }
+
+    public static String getAuthToken() {
+        SignInResponse response = getSigninResponse();
+        if (response != null) {
+            return response.getToken().getToken();
+        }
+        return "";
+    }
 }

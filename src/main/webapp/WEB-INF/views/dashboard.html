@@ -6,36 +6,9 @@
 <body>
 	<div class="wrapper">
 		<div class="page-container">
-			<div class="sidebar">
-				<h2 class="logo">
-					<div class="logo-wrapper">
-						<img th:src="@{/static/images/logo.png}" alt="Leapfrog"/>
-					</div>
-				</h2>
-				<ul class="sidebar-navigation">
-					<li class="active">
-						<a href="#">
-							<i class="fa fa-tachometer" aria-hidden="true"></i>
-							<span>Dashboard</span>
-						</a>
-					</li>
-					<li>
-						<a href="assessment.html">
-							<i class="fa fa-bar-chart" aria-hidden="true"></i>
-							<span>Assessment</span>
-						</a>
-					</li>
-					<li>
-						<a href="reports.html">
-							<i class="fa fa-file-text" aria-hidden="true"></i>
-							<span>Reports</span>
-						</a>
-					</li>
-				</ul>
-			</div>
+			<div class="sidebar" th:include="fragment/common :: sidebarFragment"></div>
 			<div class="main-container">
-				<header th:include="fragment/common :: headerFragment">
-				</header>
+				<header th:include="fragment/common :: headerFragment"></header>
 				<main>
 					<div class="title-section">
 						<h2>Dashboard</h2>
@@ -54,7 +27,7 @@
 										<h2 class="project-title" th:text="${project.name}"></h2>
 										<div class="project-info">
 											<div class="project-day">
-												<span class="days">78</span> Days
+												<span class="days" th:text="${project.duration}"></span> Days
 											</div>
 											<div class="project-phase">
 												<span class="phase l-green">Inititation</span>
@@ -69,75 +42,10 @@
 							<div th:if="${projects} == null" th:remove="tag">
 								No projects available.
 							</div>
-<!-- 							<li class="project-item"> -->
-<!-- 								<a href="#"> -->
-<!-- 									<h2 class="project-title">Bartell</h2> -->
-<!-- 									<div class="project-info"> -->
-<!-- 										<div class="project-day"> -->
-<!-- 											<span class="days">78</span> Days -->
-<!-- 										</div> -->
-<!-- 										<div class="project-phase"> -->
-<!-- 											<span class="phase l-green">Inititation</span> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="project-manager"> -->
-<!-- 										Mohammed Naved -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-<!-- 							</li> -->
-<!-- 							<li class="project-item"> -->
-<!-- 								<a href="#"> -->
-<!-- 									<h2 class="project-title">Bartell</h2> -->
-<!-- 									<div class="project-info"> -->
-<!-- 										<div class="project-day"> -->
-<!-- 											<span class="days">78</span> Days -->
-<!-- 										</div> -->
-<!-- 										<div class="project-phase"> -->
-<!-- 											<span class="phase blue">Planning</span> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="project-manager"> -->
-<!-- 										Mohammed Naved -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-<!-- 							</li> -->
-<!-- 							<li class="project-item"> -->
-<!-- 								<a href="#"> -->
-<!-- 									<h2 class="project-title">Bartell</h2> -->
-<!-- 									<div class="project-info"> -->
-<!-- 										<div class="project-day"> -->
-<!-- 											<span class="days">78</span> Days -->
-<!-- 										</div> -->
-<!-- 										<div class="project-phase"> -->
-<!-- 											<span class="phase red">Execution</span> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="project-manager"> -->
-<!-- 										Mohammed Naved -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-<!-- 							</li> -->
-<!-- 							<li class="project-item"> -->
-<!-- 								<a href="#"> -->
-<!-- 									<h2 class="project-title">Bartell</h2> -->
-<!-- 									<div class="project-info"> -->
-<!-- 										<div class="project-day"> -->
-<!-- 											<span class="days">78</span> Days -->
-<!-- 										</div> -->
-<!-- 										<div class="project-phase"> -->
-<!-- 											<span class="phase green">Closure</span> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="project-manager"> -->
-<!-- 										Mohammed Naved -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-<!-- 							</li> -->
 						</ul>
 					</div>
 				</main>
-				<footer th:include="fragment/common :: footerFragment">
-				</footer>
+				<footer th:include="fragment/common :: footerFragment"></footer>
 			</div>
 		</div>
 	</div>

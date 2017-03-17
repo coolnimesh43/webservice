@@ -21,6 +21,8 @@ public class Project extends AbstractAuditEntity {
     private String projectAssetFolderName;
     private Long parentProjectId;
 
+    private transient Long duration = 0L;
+
     @NotNull
     private String status;
 
@@ -119,6 +121,14 @@ public class Project extends AbstractAuditEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
     }
 
     @Override
