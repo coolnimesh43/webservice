@@ -2,6 +2,7 @@ package com.coolnimesh43.webservice.web.service.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Inject
     private WebServiceProperties webServiceProperties;
 
+    @Override
     public List<Project> findAllByCurrentUser() {
         String userURL = WebUtil.constructURL(this.webServiceProperties.getInstance().getPersistence().getName(), "/api/project/user");
         String token = ((SignInResponse) SecurityContextHolder.getContext().getAuthentication().getDetails()).getToken().getToken();
@@ -45,8 +47,9 @@ public class ProjectServiceImpl implements ProjectService {
                     new ParameterizedTypeReference<List<Project>>() {
                     }, new Object[1]);
             if (response != null) {
-                response.getBody().stream().filter(p -> p.getStartDate() != null && p.getEndDate() != null).forEach(p -> {
-                    p.setDuration(DateUtil.getDifferenceInDays(p.getStartDate(), p.getEndDate()));
+                final ZonedDateTime current = ZonedDateTime.now();
+                response.getBody().stream().filter(p -> p.getStartDate() != null).forEach(p -> {
+                    p.setDuration(DateUtil.getDifferenceInDays(p.getStartDate(), current));
                 });
             }
             return response != null ? response.getBody() : null;
