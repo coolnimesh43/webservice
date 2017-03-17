@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment/common :: headerFragment">
+<head th:include="fragment/common :: headFragment">
 	<title>Login</title>
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
-<!-- 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}"/> -->
-<!-- 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/normalize.css}"/> -->
-<!-- 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}"/> -->
-<!-- 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}"/> -->
-<!-- 	<link rel="stylesheet" type="text/css" th:href="@{/static/font-awesome/css/font-awesome.min.css}"/> -->
 </head>
 <body>
 	<div class="wrapper">
@@ -20,7 +14,7 @@
 				</div>
 				<form th:action="@{/login}" class="login-form" method="post">
 					<div class="username">
-						<input type="text" placeholder="Username" name="userName"/>
+						<input type="text" placeholder="Username" name="userName" autofocus="true"/>
 					</div>
 					<div class="password">
 						<input type="password" placeholder="Password" name="password"/>

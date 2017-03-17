@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests().anyRequest().fullyAuthenticated();
 
         httpSecurity.formLogin().loginPage("/login").permitAll().usernameParameter("userName").passwordParameter("password")
-                .defaultSuccessUrl("/home", true).and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .defaultSuccessUrl("/dashboard", true).and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .invalidateHttpSession(true).and().csrf();
 
         httpSecurity.exceptionHandling().accessDeniedPage("/access-denied").and().sessionManagement()

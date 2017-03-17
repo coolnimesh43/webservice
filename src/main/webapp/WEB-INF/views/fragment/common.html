@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headerFragment">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headFragment">
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}"/>
@@ -10,6 +10,37 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/static/font-awesome/css/font-awesome.min.css}"/>
 </head>
 <body>
-
+	<header th:fragment="headerFragment">
+		<div class="menu-icon">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</div>
+		<form action="#" class="search-form">
+			<input type="search" placeholder="Search..."/>
+			<button class="search-button" type="submit">
+				<i class="fa fa-search" aria-hidden="true"></i>
+			</button>
+		</form>
+		<div class="profile">
+			<div class="profile-img">
+				<img th:src="@{/static/images/admin.jpg}" alt="Admin"/>
+			</div>
+			<div class="profile-name">
+				<span th:text="${#authentication.name}"></span>
+				<ul class="drop-down">
+					<li>
+						<a href=""><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<a href="#" class="add-project">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			<span class="add-project-hidden">Add Project</span>
+		</a>
+	</header>
+	
+	<footer th:fragment="footerFragment">
+		<span>&copy;<a href="#">Leapfrog Technology Inc.</a></span>
+	</footer>
 </body>
 </html>
