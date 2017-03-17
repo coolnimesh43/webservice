@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:after{
+  clear: both;
+  display: block;
+  content: "";
+}
+
+span:after, a:after, strong:after, label:after{
+  display: inline;
+}
